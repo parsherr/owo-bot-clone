@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const db = require('croxydb');
+const config = require('./config.json');
 
 const client = new Client({
   intents: [
@@ -12,7 +13,7 @@ const client = new Client({
 
 client.commands = new Collection();
 client.cooldowns = new Collection();
-client.defaultPrefix = '!';
+client.defaultPrefix = config.prefix;
 client.prefix = db.get('prefix') || client.defaultPrefix;
 
 // Komut dosyalarını yükleyin
@@ -71,4 +72,4 @@ client.on('messageCreate', async message => {
   }
 });
 
-client.login();
+client.login(config.token);
